@@ -4,7 +4,9 @@ import fr.gwengwen49.mazeplugin.maze.parts.decorations.MazeDecoration;
 import fr.gwengwen49.mazeplugin.maze.parts.decorations.SimpleBlockMazeDecoration;
 import fr.gwengwen49.mazeplugin.maze.parts.decorations.TreeDecoration;
 import fr.gwengwen49.mazeplugin.maze.parts.pieces.Floor;
-import fr.gwengwen49.mazeplugin.maze.parts.pieces.Wall;
+import fr.gwengwen49.mazeplugin.maze.parts.pieces.wall.Wall;
+import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
+import fr.gwengwen49.mazeplugin.maze.registry.PartsRegistry;
 import fr.gwengwen49.mazeplugin.util.Box;
 import org.bukkit.Material;
 
@@ -27,7 +29,7 @@ public class Parts {
 
      public static void register()
      {
-        PartsRegistry
+        MazeRegistry.getInstance()
                 .register(WALL, "wall")
                 .register(FLOOR, "floor")
                 .register(COBWEB, "cobweb")

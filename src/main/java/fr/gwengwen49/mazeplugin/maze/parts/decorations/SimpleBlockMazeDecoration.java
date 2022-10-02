@@ -16,7 +16,7 @@ public class SimpleBlockMazeDecoration extends MazeDecoration
     @Override
     public void generate(Location startPos) {
 
-        switch(this.getDecorationType())
+        switch(this.getPlacementType())
         {
             case FLOOR :
             {

@@ -4,8 +4,6 @@ package fr.gwengwen49.mazeplugin.maze;
 
 import fr.gwengwen49.mazeplugin.MazePlugin;
 import fr.gwengwen49.mazeplugin.accessing.InjectionHandler;
-import fr.gwengwen49.mazeplugin.maze.parts.Part;
-import fr.gwengwen49.mazeplugin.maze.parts.PartsRegistry;
 import fr.gwengwen49.mazeplugin.maze.tasks.MazeTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

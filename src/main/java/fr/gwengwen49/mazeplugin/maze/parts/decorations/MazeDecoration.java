@@ -27,7 +27,7 @@ public abstract class MazeDecoration implements Part
         return rarity;
     }
 
-    public Type getDecorationType()
+    public Type getPlacementType()
     {
         return type;
     }

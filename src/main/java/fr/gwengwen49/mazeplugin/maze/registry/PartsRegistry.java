@@ -1,10 +1,11 @@
-package fr.gwengwen49.mazeplugin.maze.parts;
+package fr.gwengwen49.mazeplugin.maze.registry;
+
+import fr.gwengwen49.mazeplugin.maze.parts.Part;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 
 public class PartsRegistry {
-
+    /**
     private static PartsRegistry INSTANCE;
     public PartsRegistry()
     {
@@ -30,4 +31,5 @@ public class PartsRegistry {
     {
     return PARTS;
     }
+     */
 }

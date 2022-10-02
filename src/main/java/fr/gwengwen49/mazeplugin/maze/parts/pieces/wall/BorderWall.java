@@ -1,13 +1,20 @@
-package fr.gwengwen49.mazeplugin.maze.parts.pieces;
+package fr.gwengwen49.mazeplugin.maze.parts.pieces.wall;
 
+import fr.gwengwen49.mazeplugin.maze.parts.Direction;
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
+import fr.gwengwen49.mazeplugin.maze.parts.pieces.MazePiece;
+import fr.gwengwen49.mazeplugin.util.Box;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
 import static fr.gwengwen49.mazeplugin.maze.MazeConfig.*;
-public class BorderWall extends MazePiece
+public class BorderWall extends Wall
 {
 
+
+    public BorderWall(Box dimensions, Direction direction, Material... materials) {
+        super(dimensions, direction, materials);
+    }
 
     @Override
     public void generate(Location startPos) {

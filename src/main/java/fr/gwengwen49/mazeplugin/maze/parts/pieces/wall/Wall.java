@@ -1,15 +1,13 @@
-package fr.gwengwen49.mazeplugin.maze.parts.pieces;
+package fr.gwengwen49.mazeplugin.maze.parts.pieces.wall;
 
 import static fr.gwengwen49.mazeplugin.maze.MazeConfig.*;
 
 import fr.gwengwen49.mazeplugin.maze.parts.Direction;
+import fr.gwengwen49.mazeplugin.maze.parts.pieces.MazePiece;
 import fr.gwengwen49.mazeplugin.util.Box;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-
-import javax.swing.*;
-import java.awt.*;
 
 
 public class Wall extends MazePiece {

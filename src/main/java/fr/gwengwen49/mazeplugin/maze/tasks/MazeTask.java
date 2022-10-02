@@ -4,14 +4,13 @@ import fr.gwengwen49.mazeplugin.commands.SummoningCommand;
 import fr.gwengwen49.mazeplugin.maze.Maze;
 import fr.gwengwen49.mazeplugin.maze.chunks.MazeChunk;
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
-import fr.gwengwen49.mazeplugin.maze.parts.PartsRegistry;
+import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
+import fr.gwengwen49.mazeplugin.maze.registry.PartsRegistry;
 import fr.gwengwen49.mazeplugin.maze.parts.Tickable;
-import fr.gwengwen49.mazeplugin.maze.parts.Tickable;
+import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
 import fr.gwengwen49.mazeplugin.util.HelpFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-
-import java.util.List;
 
 public class MazeTask implements Runnable {
 
@@ -35,7 +34,7 @@ public class MazeTask implements Runnable {
         Location loc = new Location(startPos.getWorld(), x+line, y, z+column);
         new MazeChunk(loc);
         Bukkit.broadcastMessage(HelpFunctions.convertToPercentage((float) numbChunks*numbChunks, (float) nbChunk)+"%"+"("+getChunkCoord()+")");
-        for( Part part : PartsRegistry.getParts())
+        for(Object part : MazeRegistry.getInstance().getRegisterables())
         {
             if(part instanceof Tickable)
             {
