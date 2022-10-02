@@ -14,6 +14,8 @@ public class SummoningCommand implements CommandExecutor {
 
     private static Location startPos;
     private static Player player;
+    private static Maze maze;
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -21,7 +23,7 @@ public class SummoningCommand implements CommandExecutor {
             player = (Player) sender;
             if(args[0].equals("simple")) {
                 startPos = ((Player) sender).getLocation();
-                Maze maze = new Maze(startPos);
+                maze = new Maze(startPos);
                 return true;
             }
             for (String arg : args) {
@@ -39,5 +41,9 @@ public class SummoningCommand implements CommandExecutor {
     public static Location getStartPos()
     {
         return startPos;
+    }
+
+    public static Maze getMaze() {
+        return maze;
     }
 }

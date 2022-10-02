@@ -10,11 +10,12 @@ public class MazeChunk {
 
     public static MazeChunk INSTANCE;
     public static List<ChunkFeature> CHUNK_FEATURES = new ArrayList<>();
-
+    private int radius;
     private static Location startPos;
     public MazeChunk(Location startPos)
     {
         startPos = startPos;
+        this.radius = radius;
         INSTANCE = this;
         for (ChunkFeature chunkFeature : CHUNK_FEATURES)
         {
@@ -25,6 +26,10 @@ public class MazeChunk {
     public MazeChunk()
     {
 
+    }
+
+    public int getRadius() {
+        return radius;
     }
 
     public static Location getStartPos() {
