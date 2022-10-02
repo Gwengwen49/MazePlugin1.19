@@ -1,0 +1,11 @@
+name: MazePlugin1.19
+version: '${project.version}'
+main: fr.gwengwen49.mazeplugin.MazePlugin
+api-version: 1.19
+commands:
+  createmaze:
+    permission: maze.create
+    description: Spawn the Maze
+  part:
+    permission: maze.part
+    description: Create the specified part without the maze
