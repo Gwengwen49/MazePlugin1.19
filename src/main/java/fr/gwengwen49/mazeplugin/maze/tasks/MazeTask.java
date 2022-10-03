@@ -56,7 +56,7 @@ public class MazeTask implements Runnable {
         {
             this.isFinished = true;
 
-            Bukkit.getScheduler().cancelTask(Maze.INSTANCE.getTaskID());
+            Bukkit.getScheduler().cancelTask(Maze.getInstance().getTaskID());
         }
 
     }

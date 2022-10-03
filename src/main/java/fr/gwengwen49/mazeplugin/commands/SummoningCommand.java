@@ -23,7 +23,8 @@ public class SummoningCommand implements CommandExecutor {
             player = (Player) sender;
             if(args[0].equals("simple")) {
                 startPos = ((Player) sender).getLocation();
-                maze = new Maze(startPos);
+                maze = new Maze();
+                maze.build(startPos);
                 return true;
             }
             for (String arg : args) {

@@ -10,16 +10,22 @@ import org.bukkit.Location;
 
 
 public class Maze{
-    public static Maze INSTANCE;
-    public final int taskID;
+    private static Maze INSTANCE;
+    private int taskID;
     private static MazeTask mazeTask;
-        public Maze(Location startPos) {
-            startPos = startPos;
+    private Location startPos;
+        public Maze() {
             INSTANCE = this;
             mazeTask = new MazeTask(startPos);
-            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MazePlugin.INSTANCE, mazeTask, 1, 2*20);
-            InjectionHandler.getAndExecute(this.getClass(), "");
         }
+        public Maze build(Location startPos){
+            this.startPos = startPos;
+            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MazePlugin.INSTANCE, mazeTask, 1, 2*20);
+            return this;
+        }
+    public Location getStartPos() {
+        return startPos;
+    }
 
     public int getTaskID() {
         return taskID;
@@ -28,8 +34,15 @@ public class Maze{
     public static MazeTask getMazeTask() {
         return mazeTask;
     }
+
+    public static Maze getInstance() {
+        return INSTANCE;
+    }
+
     //((chunkCoord/16)+1)+"/"+(numbChunks*numbChunks)
         }
+
+
 
 
 
