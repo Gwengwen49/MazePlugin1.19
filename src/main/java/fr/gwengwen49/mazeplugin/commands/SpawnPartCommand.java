@@ -2,7 +2,7 @@ package fr.gwengwen49.mazeplugin.commands;
 
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
-import fr.gwengwen49.mazeplugin.maze.registry.PartsRegistry;
+import fr.gwengwen49.mazeplugin.util.Constants;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +16,7 @@ public class SpawnPartCommand implements CommandExecutor {
         Object part;
         for(String arg : args)
         {
-           part = MazeRegistry.getInstance().getFromName(arg);
+           part = MazeRegistry.PARTS.getFromName(arg);
            if(part instanceof Part) {
                ((Part)part).generate(((Player) sender).getLocation());
            }

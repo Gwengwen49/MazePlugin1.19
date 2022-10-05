@@ -1,9 +1,7 @@
 package fr.gwengwen49.mazeplugin.commands;
 
 import fr.gwengwen49.mazeplugin.maze.Maze;
-import fr.gwengwen49.mazeplugin.maze.parts.ChunkFeatures;
 import fr.gwengwen49.mazeplugin.util.Constants;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,8 +21,9 @@ public class SummoningCommand implements CommandExecutor {
             player = (Player) sender;
             if(args[0].equals("simple")) {
                 startPos = ((Player) sender).getLocation();
-                maze = new Maze();
-                maze.build(startPos);
+                new Maze(startPos);
+
+                Constants.init();
                 return true;
             }
             for (String arg : args) {

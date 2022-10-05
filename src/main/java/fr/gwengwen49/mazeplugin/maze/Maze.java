@@ -3,8 +3,7 @@ package fr.gwengwen49.mazeplugin.maze;
 
 
 import fr.gwengwen49.mazeplugin.MazePlugin;
-import fr.gwengwen49.mazeplugin.accessing.InjectionHandler;
-import fr.gwengwen49.mazeplugin.maze.tasks.MazeTask;
+import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -12,16 +11,13 @@ import org.bukkit.Location;
 public class Maze{
     private static Maze INSTANCE;
     private int taskID;
-    private static MazeTask mazeTask;
+    private static GenStep genStep;
     private Location startPos;
-        public Maze() {
+        public Maze(Location startPos) {
             INSTANCE = this;
-            mazeTask = new MazeTask(startPos);
-        }
-        public Maze build(Location startPos){
             this.startPos = startPos;
-            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MazePlugin.INSTANCE, mazeTask, 1, 2*20);
-            return this;
+            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MazePlugin.INSTANCE, genStep, 1, 2*20);
+
         }
     public Location getStartPos() {
         return startPos;
@@ -31,8 +27,8 @@ public class Maze{
         return taskID;
     }
 
-    public static MazeTask getMazeTask() {
-        return mazeTask;
+    public static GenStep getMazeTask() {
+        return genStep;
     }
 
     public static Maze getInstance() {

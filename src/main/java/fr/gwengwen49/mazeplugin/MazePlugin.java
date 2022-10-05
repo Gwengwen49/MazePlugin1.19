@@ -5,6 +5,7 @@ import fr.gwengwen49.mazeplugin.commands.SpawnPartCommand;
 import fr.gwengwen49.mazeplugin.commands.SummoningCommand;
 import fr.gwengwen49.mazeplugin.maze.parts.ChunkFeatures;
 import fr.gwengwen49.mazeplugin.maze.parts.Parts;
+import fr.gwengwen49.mazeplugin.util.Constants;
 import org.bukkit.plugin.java.JavaPlugin;
 
 

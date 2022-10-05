@@ -1,12 +1,15 @@
 package fr.gwengwen49.mazeplugin.maze;
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
+import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
+import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
 import org.bukkit.Location;
 
+import java.util.Optional;
 import java.util.Random;
 
 import static fr.gwengwen49.mazeplugin.maze.MazeConfig.chunkSize;
 
-public record ChunkFeature<T extends Part>(T part, int spawnInterval, int chanceOfSpawn)
+public record ChunkFeature<T extends Part>(T part, Class<? extends GenStep> genStep, int spawnInterval, int chanceOfSpawn) implements RegistryEntry
 {
     public ChunkFeature build(Location startPos)
     {

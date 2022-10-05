@@ -1,29 +1,29 @@
-package fr.gwengwen49.mazeplugin.maze.tasks;
+package fr.gwengwen49.mazeplugin.maze.steps;
 
 import fr.gwengwen49.mazeplugin.commands.SummoningCommand;
 import fr.gwengwen49.mazeplugin.maze.Maze;
 import fr.gwengwen49.mazeplugin.maze.chunks.MazeChunk;
-import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
-import fr.gwengwen49.mazeplugin.maze.registry.PartsRegistry;
 import fr.gwengwen49.mazeplugin.maze.parts.Tickable;
 import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
 import fr.gwengwen49.mazeplugin.util.HelpFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-public class MazeTask implements Runnable {
+public abstract class GenStep implements Runnable, RegistryEntry {
 
     private final Location startPos;
+    private final Class<? extends GenStep> genStep;
     private int numbChunks = 16;
     private int line = 0;
     private int nbChunk = 1;
     private int column = 0;
     private int chunkCoord;
     private boolean isFinished;
-    public MazeTask(Location startPos)
+    public GenStep(Location startPos, Class<? extends GenStep> genStep)
     {
         this.startPos = startPos;
+        this.genStep = genStep;
     }
     @Override
     public void run() {
@@ -32,9 +32,9 @@ public class MazeTask implements Runnable {
         int y = (int) startPos.getY();
         int z = (int) startPos.getZ();
         Location loc = new Location(startPos.getWorld(), x+line, y, z+column);
-        new MazeChunk(loc);
+        new MazeChunk(loc, genStep);
         Bukkit.broadcastMessage(HelpFunctions.convertToPercentage((float) numbChunks*numbChunks, (float) nbChunk)+"%"+"("+getChunkCoord()+")");
-        for(Object part : MazeRegistry.getInstance().getRegisterables())
+        for(Object part : MazeRegistry.PARTS.getRegisterables())
         {
             if(part instanceof Tickable)
             {
@@ -54,11 +54,21 @@ public class MazeTask implements Runnable {
         }
         if(column == 16*numbChunks)
         {
-            this.isFinished = true;
-
-            Bukkit.getScheduler().cancelTask(Maze.getInstance().getTaskID());
+            if(this.isInfinite() == false) {
+                this.isFinished = true;
+                Bukkit.getScheduler().cancelTask(Maze.getInstance().getTaskID());
+            }
+            else {
+                line = 0;
+                column = 0;
+            }
         }
 
+    }
+
+    public abstract boolean isInfinite();
+    public Class<? extends GenStep> getGenStep() {
+        return genStep;
     }
 
     public boolean isFinished() {

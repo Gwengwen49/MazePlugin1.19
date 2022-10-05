@@ -20,7 +20,7 @@ public class SimpleBlockMazeDecoration extends MazeDecoration
         {
             case FLOOR :
             {
-                    startPos.getWorld().getBlockAt(Constants.DECORATION_FLOOR_STARTPOS).setType(this.getMaterial());
+                    startPos.getWorld().getBlockAt(Constants.getDecorationFloorStartpos()).setType(this.getMaterial());
 
             }
 
