@@ -6,6 +6,7 @@ import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.parts.components.Component;
 import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
 import fr.gwengwen49.mazeplugin.util.Constants;
+import fr.gwengwen49.mazeplugin.util.Identity;
 import org.checkerframework.checker.index.qual.PolyUpperBound;
 
 import java.util.*;
@@ -17,20 +18,27 @@ public class MazeRegistry<T extends RegistryEntry> {
     public static MazeRegistry<Part> PARTS = new MazeRegistry<>();
     public static MazeRegistry<? extends GenStep> STEPS = new MazeRegistry<>();
     public static MazeRegistry<ChunkFeature<?>> CHUNK_FEATURES = new MazeRegistry<>();
+
+
     public MazeRegistry register(T registerable, String name) {
         REGISTERABLES.put(name, registerable);
         return this;
     }
+    public MazeRegistry register(Identity<T>... IDs) {
+        for(Identity<T> identity : IDs) {
+            REGISTERABLES.put(identity.name(), identity.object());
+        }
+        return this;
+    }
 
-    public T get()
+    public T getEntry()
     {
         return (T)this;
     }
 
-    public RegistryEntry getFromName(String name)
-    {
-        RegistryEntry registryEntry = REGISTERABLES.get(name);
-        return registryEntry;
+    public T getFromName(String name) {
+        return REGISTERABLES.get(name);
+
     }
 
     public List<T> getRegisterables() {
