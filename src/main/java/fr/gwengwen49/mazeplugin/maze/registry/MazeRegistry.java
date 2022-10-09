@@ -14,18 +14,26 @@ import java.util.*;
 public class MazeRegistry<T extends RegistryEntry> {
 
     private Map<String, T> REGISTERABLES = new HashMap<>();
-    public static MazeRegistry<Component> COMPONENTS = new MazeRegistry<>();
-    public static MazeRegistry<Part> PARTS = new MazeRegistry<>();
-    public static MazeRegistry<? extends GenStep> STEPS = new MazeRegistry<>();
-    public static MazeRegistry<ChunkFeature<?>> CHUNK_FEATURES = new MazeRegistry<>();
+    private final String accessName;
+    private String name;
+    public static MazeRegistry<Component> COMPONENTS = new MazeRegistry<>("component");
+    public static MazeRegistry<Part> PARTS = new MazeRegistry<>("part");
+    public static MazeRegistry<GenStep> STEPS = new MazeRegistry<>("step");
+    public static MazeRegistry<ChunkFeature<?>> CHUNK_FEATURES = new MazeRegistry<>("chunk_feature");
 
+    public MazeRegistry(String accessName)
+    {
+        this.accessName = accessName;
+    }
 
     public MazeRegistry register(T registerable, String name) {
+        this.name = name;
         REGISTERABLES.put(name, registerable);
         return this;
     }
     public MazeRegistry register(Identity<T>... IDs) {
         for(Identity<T> identity : IDs) {
+            this.name = identity.name();
             REGISTERABLES.put(identity.name(), identity.object());
         }
         return this;
@@ -36,6 +44,13 @@ public class MazeRegistry<T extends RegistryEntry> {
         return (T)this;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAccessName() {
+        return accessName;
+    }
     public T getFromName(String name) {
         return REGISTERABLES.get(name);
 
@@ -45,4 +60,5 @@ public class MazeRegistry<T extends RegistryEntry> {
           return new ArrayList<>(REGISTERABLES.values());
 
     }
+
 }

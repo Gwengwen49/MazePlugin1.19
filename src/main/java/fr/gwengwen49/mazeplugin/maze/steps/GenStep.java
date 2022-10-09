@@ -9,12 +9,13 @@ import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
 import fr.gwengwen49.mazeplugin.util.HelpFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public abstract class GenStep implements Runnable, RegistryEntry {
+public abstract class GenStep extends BukkitRunnable implements RegistryEntry {
 
     private final Location startPos;
     private final Class<? extends GenStep> genStep;
-    private int numbChunks = 16;
+    private int numbChunks = 8;
     private int line = 0;
     private int nbChunk = 1;
     private int column = 0;
@@ -24,6 +25,12 @@ public abstract class GenStep implements Runnable, RegistryEntry {
     {
         this.startPos = startPos;
         this.genStep = genStep;
+    }
+
+    public GenStep(Class<? extends GenStep> genStep)
+    {
+        this.genStep = genStep;
+        this.startPos = SummoningCommand.getStartPos();
     }
     @Override
     public void run() {
@@ -54,24 +61,25 @@ public abstract class GenStep implements Runnable, RegistryEntry {
         }
         if(column == 16*numbChunks)
         {
-            if(this.isInfinite() == false) {
-                this.isFinished = true;
-                Bukkit.getScheduler().cancelTask(Maze.getInstance().getTaskID());
-            }
-            else {
+            if(isInfinite() == true)
+            {
                 line = 0;
                 column = 0;
             }
+            else if(isInfinite() == false) {
+                isFinished = true;
+                cancel();
+            }
         }
-
     }
 
     public abstract boolean isInfinite();
+
     public Class<? extends GenStep> getGenStep() {
         return genStep;
     }
 
-    public boolean isFinished() {
+    public synchronized boolean isFinished() {
         return isFinished;
     }
 

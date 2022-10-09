@@ -4,6 +4,7 @@ package fr.gwengwen49.mazeplugin.maze;
 
 import fr.gwengwen49.mazeplugin.MazePlugin;
 import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
+import fr.gwengwen49.mazeplugin.maze.steps.StepManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -16,8 +17,7 @@ public class Maze{
         public Maze(Location startPos) {
             INSTANCE = this;
             this.startPos = startPos;
-            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MazePlugin.INSTANCE, genStep, 1, 2*20);
-
+            StepManager.launch();
         }
     public Location getStartPos() {
         return startPos;

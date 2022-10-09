@@ -4,11 +4,13 @@ import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
 import org.bukkit.Location;
 
+import java.util.Random;
+
 
 @FunctionalInterface
 public interface Component<T extends Part> extends RegistryEntry {
-
-    void generate(Location loc);
+    Random random = new Random();
+    void generate(Location loc, T part);
 
     default T getPart()
     {

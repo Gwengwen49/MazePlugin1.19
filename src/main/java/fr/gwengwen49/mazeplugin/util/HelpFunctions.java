@@ -29,6 +29,45 @@ public class HelpFunctions
         return (int)finalPercentage;
 
     }
-
+    public static Location movedToSouth(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ());
+        return location1;
+    }
+    public static Location movedToSouthEast(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ()-1);
+        return location1;
+    }
+    public static Location movedToEast(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()-1);
+        return location1;
+    }
+    public static Location movedToNorthEast(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ()-1);
+        return location1;
+    }
+    public static Location movedToNorth(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ());
+        return location1;
+    }
+    public static Location movedToNorthWest(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ()+1);
+        return location1;
+    }
+    public static Location movedToWest(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()+1);
+        return location1;
+    }
+    public static Location movedToSouthWest(Location location)
+    {
+        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ()+1);
+        return location1;
+    }
 
 }

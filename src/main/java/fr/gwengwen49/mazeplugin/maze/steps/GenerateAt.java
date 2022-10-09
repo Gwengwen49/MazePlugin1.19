@@ -8,5 +8,5 @@ import java.util.Optional;
 @Target(ElementType.TYPE)
 public @interface GenerateAt
 {
-    Class<? extends GenStep> Step() default WallStep.class;
+    Class<? extends GenStep> step() default WallStep.class;
 }
