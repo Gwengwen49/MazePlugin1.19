@@ -1,6 +1,7 @@
 package fr.gwengwen49.mazeplugin.maze.registry;
 
 
+import com.google.common.base.Strings;
 import fr.gwengwen49.mazeplugin.maze.ChunkFeature;
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.parts.components.Component;
@@ -54,9 +55,18 @@ public class MazeRegistry<T extends RegistryEntry> {
     public String getAccessName() {
         return accessName;
     }
+
+    public String getDestinationPath() {
+        return accessName + "/" + name;
+    }
+
     public T getFromName(String name) {
         return REGISTERABLES.get(name);
 
+    }
+
+    public T getRegisterable() {
+        return registerable;
     }
 
     public List<T> getRegisterables() {

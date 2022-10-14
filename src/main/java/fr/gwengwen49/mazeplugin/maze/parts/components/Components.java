@@ -16,10 +16,8 @@ public class Components {
     public static void register()
     {
         MazeRegistry.COMPONENTS.register((pos, part) -> {
-            if(Component.random.nextInt(5) == 1)
-            {
+            if(Component.random.nextInt(5) == 1) {
                 pos.getBlock().setType(Material.MAGMA_BLOCK);
-            }
-        }, "test");
+            } }, "test");
     }
 }
