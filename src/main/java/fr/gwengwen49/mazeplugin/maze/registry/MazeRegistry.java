@@ -16,6 +16,7 @@ public class MazeRegistry<T extends RegistryEntry> {
     private Map<String, T> REGISTERABLES = new HashMap<>();
     private final String accessName;
     private String name;
+    private T registerable;
     public static MazeRegistry<Component> COMPONENTS = new MazeRegistry<>("component");
     public static MazeRegistry<Part> PARTS = new MazeRegistry<>("part");
     public static MazeRegistry<GenStep> STEPS = new MazeRegistry<>("step");
@@ -28,12 +29,14 @@ public class MazeRegistry<T extends RegistryEntry> {
 
     public MazeRegistry register(T registerable, String name) {
         this.name = name;
+        this.registerable = registerable;
         REGISTERABLES.put(name, registerable);
         return this;
     }
     public MazeRegistry register(Identity<T>... IDs) {
         for(Identity<T> identity : IDs) {
             this.name = identity.name();
+            this.registerable = identity.object();
             REGISTERABLES.put(identity.name(), identity.object());
         }
         return this;

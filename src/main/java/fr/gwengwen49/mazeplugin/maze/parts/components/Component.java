@@ -10,7 +10,7 @@ import java.util.Random;
 @FunctionalInterface
 public interface Component<T extends Part> extends RegistryEntry {
     Random random = new Random();
-    void generate(Location loc, T part);
+    void generate(Location pos, T part);
 
     default T getPart()
     {
