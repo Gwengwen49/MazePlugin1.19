@@ -1,9 +1,6 @@
 package fr.gwengwen49.mazeplugin.util;
 
 import fr.gwengwen49.mazeplugin.commands.SummoningCommand;
-import fr.gwengwen49.mazeplugin.maze.Maze;
-import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
-import fr.gwengwen49.mazeplugin.maze.registry.RegistryEntry;
 import org.bukkit.Location;
 
 public class Constants {
@@ -19,5 +16,6 @@ public class Constants {
     public static Location getDecorationFloorStartpos() {
         return DECORATION_FLOOR_STARTPOS;
     }
+
 
 }

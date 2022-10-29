@@ -1,10 +1,11 @@
 package fr.gwengwen49.mazeplugin.maze.parts.decorations;
 
-import com.sun.source.tree.Tree;
+import fr.gwengwen49.mazeplugin.util.Box;
+import fr.gwengwen49.mazeplugin.util.Constants;
+import fr.gwengwen49.mazeplugin.util.Functions;
 import org.bukkit.Location;
 import org.bukkit.Material;
-
-import java.util.Random;
+import org.bukkit.World;
 
 public class TreeDecoration extends MazeDecoration{
 
@@ -69,77 +70,37 @@ public class TreeDecoration extends MazeDecoration{
     public void generate(Location startPos) {
 
         int x = (int) startPos.getX();
-        int y = (int) startPos.getY();
+        int y = (int) Constants.getDecorationFloorStartpos().getY();
         int z = (int) startPos.getZ();
-            int randomTrunkPos = random.nextInt(-2, 2);
             int randomHeight = random.nextInt(getTrunkHeight()/2);
-            for (int maxTrunkHeight = 0; maxTrunkHeight <= getTrunkHeight() - randomHeight; maxTrunkHeight++) {
-
-
-                startPos.getWorld().getBlockAt(x, y + maxTrunkHeight, z).setType(getTrunk());
-
-                if (maxTrunkHeight == getTrunkHeight() - randomHeight) {
-                    for (int diameterX = x - getLeavesRadius(); diameterX <= x + getLeavesRadius(); diameterX++) {
-                        for (int diameterY = z - getLeavesRadius(); diameterY <= z + getLeavesRadius(); diameterY++) {
-                            int posY = y+getTrunkHeight()-randomHeight;
-                            startPos.getWorld().getBlockAt(diameterX, posY, diameterY).setType(getLeaves());
-
+            for (int finalTrunkHeight = 0; finalTrunkHeight <= getTrunkHeight() - randomHeight; finalTrunkHeight++) {
+                Location loc = new Location(startPos.getWorld(), x, y+finalTrunkHeight, z);
+                if(random.nextInt(3) == 1)
+                {
+                    switch(random.nextInt(8))
+                    {
+                        case 0 : loc = Functions.movedToSouth(loc);
+                        case 1 : loc = Functions.movedToSouthEast(loc);
+                        case 2 : loc = Functions.movedToEast(loc);
+                        case 3 : loc = Functions.movedToNorthEast(loc);
+                        case 4 : loc = Functions.movedToNorth(loc);
+                        case 5 : loc = Functions.movedToNorthWest(loc);
+                        case 6 : loc = Functions.movedToWest(loc);
+                        case 7 : loc = Functions.movedToSouthWest(loc);
+                    }
+                }
+                Functions.setMaterial(loc, getTrunk());
+                if (finalTrunkHeight == getTrunkHeight() - randomHeight)
+                {
+                    this.generateLeaves(startPos.getWorld(), x, y+finalTrunkHeight, z);
                         }
                     }
                 }
-            }
-        }
 
-    public void generateLeaves(Location startPos, int x, int y, int z)
+    public void generateLeaves(World world, int x, int y, int z)
     {
-        for (int diameterX = x - getLeavesRadius(); diameterX <= x + getLeavesRadius(); diameterX++) {
-            for (int diameterY = z - getLeavesRadius(); diameterY <= z + getLeavesRadius(); diameterY++) {
-                startPos.getWorld().getBlockAt(diameterX, y, diameterY).setType(getLeaves());
-
-            }
-        }
+        Box.generate(x-getLeavesRadius(), x+getLeavesRadius(), y, y, z-getLeavesRadius(), z+getLeavesRadius(), (x1, y1, z1) -> Functions.setMaterial(world, x1, y1, z1, this.leaves));
     }
 
-
-    public Location movedToSouth(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ());
-        return location1;
-    }
-    public Location movedToSouthEast(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ()-1);
-        return location1;
-    }
-    public Location movedToEast(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()-1);
-        return location1;
-    }
-    public Location movedToNorthEast(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ()-1);
-        return location1;
-    }
-    public Location movedToNorth(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ());
-        return location1;
-    }
-    public Location movedToNorthWest(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()-1, location.getY(), location.getZ()+1);
-        return location1;
-    }
-    public Location movedToWest(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ()+1);
-        return location1;
-    }
-    public Location movedToSouthWest(Location location)
-    {
-        Location location1 = new Location(location.getWorld(), location.getX()+1, location.getY(), location.getZ()+1);
-        return location1;
-    }
 }
 

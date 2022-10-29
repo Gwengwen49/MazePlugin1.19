@@ -3,6 +3,7 @@ package fr.gwengwen49.mazeplugin.maze;
 
 
 import fr.gwengwen49.mazeplugin.MazePlugin;
+import fr.gwengwen49.mazeplugin.maze.parts.pieces.wall.Wall;
 import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
 import fr.gwengwen49.mazeplugin.maze.steps.StepManager;
 import org.bukkit.Bukkit;
@@ -11,7 +12,6 @@ import org.bukkit.Location;
 
 public class Maze{
     private static Maze INSTANCE;
-    private int taskID;
     private static GenStep genStep;
     private Location startPos;
         public Maze(Location startPos) {
@@ -21,14 +21,6 @@ public class Maze{
         }
     public Location getStartPos() {
         return startPos;
-    }
-
-    public int getTaskID() {
-        return taskID;
-    }
-
-    public static GenStep getMazeTask() {
-        return genStep;
     }
 
     public static Maze getInstance() {

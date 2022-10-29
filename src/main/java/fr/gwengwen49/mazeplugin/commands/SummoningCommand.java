@@ -1,6 +1,8 @@
 package fr.gwengwen49.mazeplugin.commands;
 
 import fr.gwengwen49.mazeplugin.maze.Maze;
+import fr.gwengwen49.mazeplugin.maze.Parameters;
+import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
 import fr.gwengwen49.mazeplugin.util.Constants;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,25 +15,23 @@ public class SummoningCommand implements CommandExecutor {
     private static Location startPos;
     private static Player player;
     private static Maze maze;
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if(sender instanceof Player) {
             player = (Player) sender;
             if(args[0].equals("simple")) {
+                Parameters.setupDefaultConfig();
                 startPos = ((Player) sender).getLocation();
                 new Maze(startPos);
 
                 Constants.init();
                 return true;
             }
-            for (String arg : args) {
 
-            }
         }
 
-        return true;
+            return true;
     }
 
     public static Player getPlayer() {

@@ -1,6 +1,8 @@
 package fr.gwengwen49.mazeplugin.maze.parts.decorations;
 
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
+import fr.gwengwen49.mazeplugin.maze.parts.components.ComponentOf;
+import fr.gwengwen49.mazeplugin.maze.parts.pieces.wall.Wall;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import java.util.Random;
@@ -10,7 +12,6 @@ public abstract class MazeDecoration implements Part
 
     private Material material;
     private Type type;
-    private int rarity;
     public MazeDecoration(Type decorationType, Material material)
     {
     this.material = material;
@@ -21,12 +22,6 @@ public abstract class MazeDecoration implements Part
     {
 
     }
-
-    public int getRarity()
-    {
-        return rarity;
-    }
-
     public Type getPlacementType()
     {
         return type;

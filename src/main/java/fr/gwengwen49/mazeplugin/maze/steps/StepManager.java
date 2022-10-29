@@ -9,12 +9,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class StepManager
 {
-private static int id;
     public static void launch() {
-            Steps.FLOOR_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
-            Steps.WALL_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
-            Steps.DECORATION_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
 
-        }
+        Steps.FLOOR_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
+        Steps.WALL_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
+        Steps.DECORATION_STEP.runTaskTimer(MazePlugin.INSTANCE, 1, 2 * 20);
 
+    }
 }

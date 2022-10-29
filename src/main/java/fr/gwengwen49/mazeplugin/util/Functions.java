@@ -1,10 +1,10 @@
 package fr.gwengwen49.mazeplugin.util;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 
-public class HelpFunctions
+public class Functions
 {
 
     public static boolean isAir(Location location)
@@ -21,6 +21,15 @@ public class HelpFunctions
     public static boolean isMaterial(Location location, Material material)
     {
         return location.getWorld().getBlockAt(location).getType() == material;
+    }
+    public static void setMaterial(Location loc, Material material)
+    {
+        loc.getBlock().setType(material);
+    }
+
+    public static void setMaterial(World wrld, int x, int y, int z, Material material)
+    {
+        new Location(wrld, x, y, z).getBlock().setType(material);
     }
 
     public static int convertToPercentage(float total, float number)

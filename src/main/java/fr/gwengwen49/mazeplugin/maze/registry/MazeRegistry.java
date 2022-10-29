@@ -1,26 +1,23 @@
 package fr.gwengwen49.mazeplugin.maze.registry;
 
 
-import com.google.common.base.Strings;
 import fr.gwengwen49.mazeplugin.maze.ChunkFeature;
 import fr.gwengwen49.mazeplugin.maze.parts.Part;
 import fr.gwengwen49.mazeplugin.maze.parts.components.Component;
-import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
-import fr.gwengwen49.mazeplugin.util.Constants;
+import fr.gwengwen49.mazeplugin.util.BiValue;
 import fr.gwengwen49.mazeplugin.util.Identity;
-import org.checkerframework.checker.index.qual.PolyUpperBound;
 
+import java.net.PortUnreachableException;
 import java.util.*;
 
 public class MazeRegistry<T extends RegistryEntry> {
 
     private Map<String, T> REGISTERABLES = new HashMap<>();
+    private static Map<String, RegistryEntry> ALL_REGISTERABLES = new HashMap<>();
     private final String accessName;
     private String name;
-    private T registerable;
-    public static MazeRegistry<Component> COMPONENTS = new MazeRegistry<>("component");
+    public static MazeRegistry<Component<?>> COMPONENTS = new MazeRegistry<>("component");
     public static MazeRegistry<Part> PARTS = new MazeRegistry<>("part");
-    public static MazeRegistry<GenStep> STEPS = new MazeRegistry<>("step");
     public static MazeRegistry<ChunkFeature<?>> CHUNK_FEATURES = new MazeRegistry<>("chunk_feature");
 
     public MazeRegistry(String accessName)
@@ -30,20 +27,16 @@ public class MazeRegistry<T extends RegistryEntry> {
 
     public MazeRegistry register(T registerable, String name) {
         this.name = name;
-        this.registerable = registerable;
         REGISTERABLES.put(name, registerable);
+        ALL_REGISTERABLES.put(name, registerable);
         return this;
     }
     public MazeRegistry register(Identity<T>... IDs) {
-        for(Identity<T> identity : IDs) {
-            this.name = identity.name();
-            this.registerable = identity.object();
-            REGISTERABLES.put(identity.name(), identity.object());
-        }
+        Arrays.stream(IDs).forEach(identity -> this.register(identity.object(), identity.name()));
         return this;
     }
 
-    public T getEntry()
+    private T getEntry()
     {
         return (T)this;
     }
@@ -52,26 +45,37 @@ public class MazeRegistry<T extends RegistryEntry> {
         return name;
     }
 
-    public String getAccessName() {
+    public String getTypeName() {
         return accessName;
     }
 
-    public String getDestinationPath() {
+    public String getPath() {
         return accessName + "/" + name;
     }
 
+    public static List<RegistryEntry> getAll() {
+        return new ArrayList<>(ALL_REGISTERABLES.values());
+    }
+
+    public static<V extends RegistryEntry> V getFromAll(String name)
+    {
+        return (V) ALL_REGISTERABLES.get(name);
+    }
     public T getFromName(String name) {
         return REGISTERABLES.get(name);
 
     }
 
-    public T getRegisterable() {
-        return registerable;
-    }
 
-    public List<T> getRegisterables() {
-          return new ArrayList<>(REGISTERABLES.values());
+    public BiValue<MazeRegistry<T>, List<T>> getRegisterables() {
+          return new BiValue<>(this, new ArrayList<>(REGISTERABLES.values()));
 
     }
+
+    public Class<T> getEntryClass()
+    {
+        return (Class<T>) this.getEntry().getClass();
+    }
+
 
 }

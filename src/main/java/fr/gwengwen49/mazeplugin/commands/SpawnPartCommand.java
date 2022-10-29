@@ -14,12 +14,13 @@ public class SpawnPartCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Object part;
-        for(String arg : args)
-        {
-           part = MazeRegistry.PARTS.getFromName(arg);
-           if(part instanceof Part) {
-               ((Part)part).generate(((Player) sender).getLocation());
-           }
+        for(String arg : args) {
+            if (arg.contains(MazeRegistry.PARTS.getTypeName()+"/")) {
+                part = MazeRegistry.PARTS.getFromName(arg);
+                if (part instanceof Part) {
+                    ((Part) part).generate(((Player) sender).getLocation());
+                }
+            }
         }
         return true;
     }

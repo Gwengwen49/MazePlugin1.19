@@ -1,5 +1,6 @@
 package fr.gwengwen49.mazeplugin.maze.chunks;
 import fr.gwengwen49.mazeplugin.maze.ChunkFeature;
+import fr.gwengwen49.mazeplugin.maze.registry.MazeRegistry;
 import fr.gwengwen49.mazeplugin.maze.steps.GenStep;
 import fr.gwengwen49.mazeplugin.maze.steps.GenerateAt;
 import org.bukkit.Location;
@@ -11,44 +12,30 @@ import java.util.List;
 public class MazeChunk {
 
     public static MazeChunk INSTANCE;
-    public static List<ChunkFeature> CHUNK_FEATURES = new ArrayList<>();
     private int radius;
-    private static Location startPos;
-    public MazeChunk(Location startPos, Class<? extends GenStep> genStep)
-    {
-        startPos = startPos;
-        this.radius = radius;
-        INSTANCE = this;
-        for (ChunkFeature chunkFeature : CHUNK_FEATURES)
-        {
-            if(chunkFeature.genStep() == genStep) {
-                chunkFeature.build(startPos);
-            }
-        }
-    }
-
+    private int startX;
+    private int startZ;
     public MazeChunk()
     {
+        this.radius = radius;
+        INSTANCE = this;
+           }
 
-    }
-
+           public MazeChunk build(Location startPos, Class<? extends GenStep> genStep) {
+               MazeRegistry.CHUNK_FEATURES.getRegisterables().second().stream().filter(chunkFeature -> chunkFeature.genStep().equals(genStep)).forEach(chunkFeature -> chunkFeature.build(startPos));
+               this.startX = startPos.getBlockX();
+               this.startZ = startPos.getBlockZ();
+               return this;
+            }
     public int getRadius() {
         return radius;
     }
 
-    public static Location getStartPos() {
-        return startPos;
+    public int getStartX() {
+        return startX;
     }
 
-    public static <T extends ChunkFeature> MazeChunk add(T... features)
-    {
-        for(ChunkFeature<?> feature : features)
-        {
-            CHUNK_FEATURES.add(feature);
-        }
-            return INSTANCE;
-
+    public int getStartZ() {
+        return startZ;
     }
-
-
 }

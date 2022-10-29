@@ -12,8 +12,4 @@ public interface Component<T extends Part> extends RegistryEntry {
     Random random = new Random();
     void generate(Location pos, T part);
 
-    default T getPart()
-    {
-        return (T)this;
-    }
 }

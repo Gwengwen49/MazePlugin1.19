@@ -5,7 +5,7 @@ import fr.gwengwen49.mazeplugin.commands.SpawnPartCommand;
 import fr.gwengwen49.mazeplugin.commands.SummoningCommand;
 import fr.gwengwen49.mazeplugin.maze.parts.ChunkFeatures;
 import fr.gwengwen49.mazeplugin.maze.parts.Parts;
-import fr.gwengwen49.mazeplugin.util.Constants;
+import fr.gwengwen49.mazeplugin.maze.parts.components.Components;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -17,8 +17,10 @@ public final class MazePlugin extends JavaPlugin {
     {
         ChunkFeatures.register();
         Parts.register();
+        Components.register();
       getCommand("createmaze").setExecutor(new SummoningCommand());
       getCommand("part").setExecutor(new SpawnPartCommand());
+
       INSTANCE = this;
     }
 

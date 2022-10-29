@@ -1,15 +1,11 @@
 package fr.gwengwen49.mazeplugin.maze.parts.pieces.wall;
-
-import static fr.gwengwen49.mazeplugin.maze.MazeConfig.*;
-
+import fr.gwengwen49.mazeplugin.maze.Parameters;
 import fr.gwengwen49.mazeplugin.maze.parts.Direction;
 import fr.gwengwen49.mazeplugin.maze.parts.pieces.MazePiece;
 import fr.gwengwen49.mazeplugin.util.Box;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-
-
 public class Wall extends MazePiece {
 
     private int valuePlus = 16;
@@ -25,8 +21,7 @@ public class Wall extends MazePiece {
     }
 
     public Wall(Direction direction) {
-        this(new Box(wallMaxDimensions[0], wallMaxDimensions[1], wallMaxDimensions[2]), direction, wallMaterials);
-
+        this(Parameters.wallMaxDimensions, direction, Parameters.wallMaterials);
     }
 
     public Box getDimensions() {
@@ -103,59 +98,35 @@ public class Wall extends MazePiece {
         }
     }
 
+    public void setRandom(Location startPos, int x, int y, int z, Material... MaterialList)
+    {
+
+    }
+
 
     @Override
     public void generate(Location startPos) {
-
-        if(this.getDirection().equals(Direction.NORTH))
-        {
-            this.setToNorth(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
-        }
-        if(this.getDirection().equals(Direction.EAST))
-        {
-            this.setToEast(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
-        }
-        if(this.getDirection().equals(Direction.SOUTH))
-        {
-            this.setToSouth(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
-        }
-        if(this.getDirection().equals(Direction.WEST))
-        {
-            Bukkit.broadcastMessage("generate");
-            this.setToWest(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
-        }
-               if(this.getDirection().equals(Direction.RANDOM)){
-                    switch (random.nextInt(4)) {
-                        case 0: {
-                            int x = dimensions.x();
-                            int z = dimensions.z();
-                            this.setToNorth(new Location(startPos.getWorld(), startPos.getX()+random.nextInt(0,randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ()+random.nextInt(0,4)), random.nextInt(x-valueMinus, x-1), random.nextInt(dimensions.y()-4, dimensions.y()), random.nextInt(z,z+valuePlus), this.getMaterials());
-
-                        }
-
-                        case 1: {
-                            int x = dimensions.x();
-                            int z = dimensions.z();
-                            this.setToWest(new Location(startPos.getWorld(), startPos.getX()+random.nextInt(0,randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ()+random.nextInt(0,4)), random.nextInt(x,x+valuePlus), random.nextInt(dimensions.y()-4, dimensions.y()), random.nextInt(z-valueMinus, z-1), this.getMaterials());
-
-                        }
-
-                        case 2: {
-                            int x = dimensions.x();
-                            int z = dimensions.z();
-                            this.setToSouth(new Location(startPos.getWorld(), startPos.getX()+random.nextInt(0,randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ()+random.nextInt(0,4)), random.nextInt(x-valueMinus, x-1), random.nextInt(dimensions.y()-4, dimensions.y()), random.nextInt(z,z+valuePlus), this.getMaterials());
-
-                        }
-
-                        case 3: {
-                            int x = dimensions.x();
-                            int z = dimensions.z();
-                            this.setToEast(new Location(startPos.getWorld(), startPos.getX()+random.nextInt(0,randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ()+random.nextInt(0,4)), random.nextInt(x,x+valuePlus), random.nextInt(dimensions.y()-4, dimensions.y()), random.nextInt(z-valueMinus, z-1), this.getMaterials());
-
-                        }
-                    }
+        switch (this.getDirection()) {
+            case NORTH: this.setToNorth(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
+            case EAST: this.setToEast(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
+            case SOUTH: this.setToSouth(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
+            case WEST: this.setToWest(startPos, dimensions.x(), dimensions.y(), dimensions.z(), getMaterials());
+            case RANDOM: {
+                int x = dimensions.x();
+                int z = dimensions.z();
+                switch (random.nextInt(4)) {
+                    case 0:
+                        this.setToNorth(new Location(startPos.getWorld(), startPos.getX() + random.nextInt(0, randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ() + random.nextInt(0, 4)), random.nextInt(x - valueMinus, x - 1), random.nextInt(dimensions.y() - 4, dimensions.y()), random.nextInt(z, z + valuePlus), this.getMaterials());
+                    case 1:
+                        this.setToWest(new Location(startPos.getWorld(), startPos.getX() + random.nextInt(0, randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ() + random.nextInt(0, 4)), random.nextInt(x, x + valuePlus), random.nextInt(dimensions.y() - 4, dimensions.y()), random.nextInt(z - valueMinus, z - 1), this.getMaterials());
+                    case 2:
+                        this.setToSouth(new Location(startPos.getWorld(), startPos.getX() + random.nextInt(0, randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ() + random.nextInt(0, 4)), random.nextInt(x - valueMinus, x - 1), random.nextInt(dimensions.y() - 4, dimensions.y()), random.nextInt(z, z + valuePlus), this.getMaterials());
+                    case 3:
+                        this.setToEast(new Location(startPos.getWorld(), startPos.getX() + random.nextInt(0, randomMaxValueForStartPlacement), startPos.getY(), startPos.getZ() + random.nextInt(0, 4)), random.nextInt(x, x + valuePlus), random.nextInt(dimensions.y() - 4, dimensions.y()), random.nextInt(z - valueMinus, z - 1), this.getMaterials());
                 }
             }
+            }
+        }
     }
 
 
